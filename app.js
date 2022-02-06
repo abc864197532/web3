@@ -32240,8 +32240,21 @@ const csjs = require('csjs-inject');
 const morphdom = require('morphdom');
 
 // 初始化 web3.js
-const INFURA_API_KEY = '0a7559ac74a549feac2011cbc733f554';
-web3 = new Web3(`https://kovan.infura.io/v3/${INFURA_API_KEY}`);
+async function web3Init() {
+  if (ethereum) {
+    // ATTENTION: In an effort to improve user privacy, MetaMask will stop exposing user accounts to dapps by default beginning November 2nd, 2018. Dapps should call provider.enable() in order to view and use accounts.Please see https://bit.ly/2QQHXvF for complete information and up-to-date example code.
+    web3 = new Web3(ethereum);
+    try {
+      await ethereum.enable();
+    } catch (error) {}
+  } else if (web3) {
+    web3 = new Web3(web3.currentProvider);
+  } else {
+    console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+  }
+}
+
+web3Init();
 
 // 設定 css inject
 const css = csjs `
@@ -32277,6 +32290,34 @@ const address = '';
 const inputAccount = html `<input class=${css.input} type="text" value=${address} placeholder="輸入你要查詢的帳戶"/>`;
 const resultElement = html `<div></div>`
 
+// ===== Preload =====
+
+function start() {
+  console.log('=== start ===');
+  getNetworkId({});
+}
+
+function getNetworkId(result) {
+  console.log('>>> 1');
+  web3.eth.net.getId(function (err, networkId) {
+    if (networkId != 42) {
+      alert('It only support Kovan network!');
+    }
+    result.networkId = networkId;
+    getAccounts(result);
+  });
+}
+
+function getAccounts(result) {
+  console.log('>>> 2');
+  web3.eth.getAccounts(function (err, addresses) {
+    if (!addresses[0]) alert('please install or login your metamask.');
+    const address = addresses[0];
+    web3.eth.defaultAccount = address;
+    inputAccount.value = address;
+  });
+}
+
 // ===== Event =====
 
 function queryBalance(event) {
@@ -32299,6 +32340,7 @@ function render() {
  `)
 }
 
+if (typeof web3 !== 'undefined') start();
 render();
 },{"csjs-inject":420,"morphdom":527,"nanohtml":551,"web3":675}],243:[function(require,module,exports){
 module.exports={
