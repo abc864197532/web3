@@ -67,20 +67,24 @@ function getNetworkId(result) {
   web3.eth.net.getId(function (err, networkId) {
     if (networkId != 42) {
       alert('It only support Kovan network!');
+    } else {
+      result.networkId = networkId;
+      getAccounts(result);
+      render();
     }
-    result.networkId = networkId;
-    getAccounts(result);
-    render();
   });
 }
 
 function getAccounts(result) {
   console.log('>>> 2');
   web3.eth.getAccounts(function (err, addresses) {
-    if (!addresses[0]) alert('please install or login your metamask.');
-    const address = addresses[0];
-    web3.eth.defaultAccount = address;
-    inputAccount.value = address;
+    if (!addresses[0]) {
+      alert('please install or login your metamask.');
+    } else {
+      const address = addresses[0];
+      web3.eth.defaultAccount = address;
+      inputAccount.value = address;
+    }
   });
 }
 
