@@ -35,7 +35,7 @@ const css = csjs `
   }
 `
 
-const address = '0x06012c8cf97BEaD5deAe237070F9587f8E7A266d';
+const address = '';
 
 // ==== DOM element ===
 
@@ -46,7 +46,7 @@ const resultElement = html `<div></div>`
 
 function queryBalance(event) {
   web3.eth.getBalance(inputAccount.value, (err, balance) => {
-    let number = Math.round(web3.utils.fromWei(balance, 'ether') * 100) / 100;
+    let number = web3.utils.fromWei(balance, 'ether');
     const newElement = html `<div class="${css.result}">結果：${number} Ether</div>`
     morphdom(resultElement, newElement);
   });
