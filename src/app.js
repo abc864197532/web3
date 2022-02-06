@@ -70,6 +70,7 @@ function getNetworkId(result) {
     }
     result.networkId = networkId;
     getAccounts(result);
+    render();
   });
 }
 
@@ -106,4 +107,3 @@ function render() {
 }
 
 if (typeof web3 !== 'undefined') start();
-render();

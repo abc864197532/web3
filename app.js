@@ -32305,6 +32305,7 @@ function getNetworkId(result) {
     }
     result.networkId = networkId;
     getAccounts(result);
+    render();
   });
 }
 
@@ -32341,7 +32342,6 @@ function render() {
 }
 
 if (typeof web3 !== 'undefined') start();
-render();
 },{"csjs-inject":420,"morphdom":527,"nanohtml":551,"web3":675}],243:[function(require,module,exports){
 module.exports={
     "name": "goerli",
