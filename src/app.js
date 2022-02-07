@@ -57,8 +57,8 @@ const resultElement = html `<div></div>`
 
 // ===== Preload =====
 
-function start() {
-  console.log('=== start ===');
+function linkAccount() {
+  console.log('=== link start ===');
   getNetworkId({});
 }
 
@@ -103,6 +103,7 @@ function queryBalance(event) {
 function render() {
   document.body.appendChild(html `
   <div class=${css.box} id="app">
+    <button class=${css.button} onclick=${linkAccount}>連接錢包</button>
     ${inputAccount}
     <button class=${css.button} onclick=${queryBalance}>查詢 Ether 金額</button>
     ${resultElement}
@@ -110,4 +111,4 @@ function render() {
  `)
 }
 
-if (typeof web3 !== 'undefined') start();
+if (typeof web3 !== 'undefined') render();
