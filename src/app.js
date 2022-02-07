@@ -113,19 +113,16 @@ function withdrawal(event) {
 // ===== Event =====
 
 function queryBalance(event) {
-  web3.eth.getBalance(inputAccount.value, (err, balance) => {
-    let account = web3.eth.defaultAccount;
-    let number1 = web3.utils.fromWei(balance, 'ether');
-    const newElement1 = html `<div class="${css.result}">結果：${number1} Ether</div>`
-    morphdom(resultElement1, newElement1);
-    let number2 = 0;
-    myContract.methods.balanceOf(account).call((err, data) => {
-      if (err) return console.error(err);
-      number2 = data;
-      console.log('>>> query ABC ok.');
-    });
-    const newElement2 = html `<div class="${css.result}">結果：${number2} Ether</div>`
-    morphdom(resultElement2, newElement2);
+  let account = web3.eth.defaultAccount;
+  web3.eth.getBalance(account, (err, balance) => {
+    let number = web3.utils.fromWei(balance, 'ether');
+    const newElement = html `<div class="${css.result}">結果：${number} Ether</div>`
+    morphdom(resultElement1, newElement);
+  });
+  myContract.methods.balanceOf(account, (err, balance) => {
+    let number = balance;
+    const newElement = html `<div class="${css.result}">結果：${number} ABC</div>`
+    morphdom(resultElement2, newElement);
   });
 }
 
