@@ -133,6 +133,7 @@ function queryBalance(event) {
 // ===== render ===== 
 
 function render() {
+  console.log('>>> 3');
   document.body.appendChild(html `
   <div class=${css.box} id="app">
     Your account is： ${web3.eth.defaultAccount}<br>
