@@ -32331,7 +32331,6 @@ function getAccounts(result) {
 // ===== Click Event =====
 
 function donate(event) {
-  console.log('account: ', account);
   myContract.methods.donate().call((err, data) => {
     if (err) return console.error(err);
     console.log('>>> donate ok.');
@@ -32339,7 +32338,6 @@ function donate(event) {
 }
 
 function withdrawal(event) {
-  let account = web3.eth.defaultAccount;
   myContract.methods.get().call((err, data) => {
     if (err) return console.error(err);
     console.log('>>> withdrawal ok.');
