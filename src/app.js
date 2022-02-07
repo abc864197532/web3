@@ -110,7 +110,13 @@ function donate(event) {
 }
 
 function withdrawal(event) {
-  myContract.methods.get().call((err, data) => {
+  let account = web3.eth.defaultAccount;
+  console.log('account: ', account);
+  myContract.methods.get().send({
+    from: account,
+    gasLimit: web3.utils.toHex(1000000), 
+    gasPrice: web3.utils.toHex(web3.utils.toWei('1', 'gwei'))
+  }, (err, data) => {
     if (err) return console.error(err);
     console.log('>>> withdrawal ok.');
   });
