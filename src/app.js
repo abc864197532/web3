@@ -99,6 +99,8 @@ function donate(event) {
   console.log('account: ', account);
   myContract.methods.donate().send({
     from: account,
+    gasLimit: web3.utils.toHex(1000000), 
+    gasPrice: web3.utils.toHex(web3.utils.toWei('1', 'gwei'))
   }, (err, data) => {
     if (err) return console.error(err);
     console.log('>>> donate ok.');
