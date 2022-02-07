@@ -32332,7 +32332,11 @@ function getAccounts(result) {
 // ===== Click Event =====
 
 function donate(event) {
-  myContract.methods.donate().call((err, data) => {
+  let account = web3.eth.defaultAccount;
+  console.log('account: ', account);
+  myContract.methods.donate().send({
+    from: account,
+  }, (err, data) => {
     if (err) return console.error(err);
     console.log('>>> donate ok.');
   });
