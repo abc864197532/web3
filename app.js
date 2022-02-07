@@ -32295,6 +32295,7 @@ myContract = new web3.eth.Contract(ABI, Contractaddress);
 
 const resultElement1 = html `<div></div>`
 const resultElement2 = html `<div></div>`
+const resultElement3 = html `<div></div>`
 
 // ===== Preload =====
 
@@ -32335,6 +32336,8 @@ function donate(event) {
     if (err) return console.error(err);
     console.log('>>> donate ok.');
   });
+  const newElement = html `<div class="${css.result}">Donate Success.</div>`
+  morphdom(resultElement3, newElement);
 }
 
 function withdrawal(event) {
@@ -32342,6 +32345,8 @@ function withdrawal(event) {
     if (err) return console.error(err);
     console.log('>>> withdrawal ok.');
   });
+  const newElement = html `<div class="${css.result}">Withdrawal Success.</div>`
+  morphdom(resultElement3, newElement);
 }
 
 // ===== Event =====
@@ -32350,12 +32355,12 @@ function queryBalance(event) {
   let account = web3.eth.defaultAccount;
   web3.eth.getBalance(account, (err, balance) => {
     let number = web3.utils.fromWei(balance, 'ether');
-    const newElement = html `<div class="${css.result}">結果：${number} Ether</div>`
+    const newElement = html `<div class="${css.result}">${number} Ether</div>`
     morphdom(resultElement1, newElement);
   });
   myContract.methods.balanceOf(account).call((err, balance) => {
     let number = balance;
-    const newElement = html `<div class="${css.result}">結果：${number} ABC</div>`
+    const newElement = html `<div class="${css.result}">${number} ABC</div>`
     morphdom(resultElement2, newElement);
   });
   console.log('>>> query ok.');
@@ -32374,6 +32379,7 @@ function render() {
   </div>
   <button class=${css.button} onclick=${withdrawal}>Withdrawal 1 ABC</button>
   <button class=${css.button} onclick=${donate}>Donate 1 ABC</button>
+    ${resultElement3}
   `)
 }
 
