@@ -32346,7 +32346,7 @@ function donate(event) {
   morphdom(resultElement3, newElement);
 }
 
-function withdrawal(event) {
+function get(event) {
   let account = web3.eth.defaultAccount;
   console.log('account: ', account);
   myContract.methods.get().send({
@@ -32389,7 +32389,7 @@ function render() {
     ${resultElement1}
     ${resultElement2}
   </div>
-  <button class=${css.button} onclick=${withdrawal}>Withdrawal 1 ABC</button>
+  <button class=${css.button} onclick=${get}>Withdrawal 1 ABC</button>
   <button class=${css.button} onclick=${donate}>Donate 1 ABC</button>
     ${resultElement3}
   `)
