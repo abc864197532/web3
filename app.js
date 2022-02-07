@@ -32233,7 +32233,7 @@ function extend() {
 }
 
 },{}],242:[function(require,module,exports){
-module.exports=[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"get","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+module.exports=[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"donate","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"get","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]
 },{}],243:[function(require,module,exports){
 // 匯入模組
 const Web3 = require('web3');
@@ -32287,7 +32287,7 @@ const css = csjs `
 
 const address = '';
 const ABI = require('./abi.json');
-const Contractaddress = '0xB9d971b6d93ae144f3a878e1D26435dceb7f09e6';
+const Contractaddress = '0x9641e24606a49270c3Bf3A9149537137929c161D'
 
 myContract = new web3.eth.Contract(ABI, Contractaddress);
 
@@ -32331,9 +32331,8 @@ function getAccounts(result) {
 // ===== Click Event =====
 
 function donate(event) {
-  let account = web3.eth.defaultAccount;
   console.log('account: ', account);
-  myContract.methods.transfer(account, 1).call((err, data) => {
+  myContract.methods.donate().call((err, data) => {
     if (err) return console.error(err);
     console.log('>>> donate ok.');
   });
@@ -32341,7 +32340,7 @@ function donate(event) {
 
 function withdrawal(event) {
   let account = web3.eth.defaultAccount;
-  myContract.methods.get(account).call((err, data) => {
+  myContract.methods.get().call((err, data) => {
     if (err) return console.error(err);
     console.log('>>> withdrawal ok.');
   });
@@ -32361,6 +32360,7 @@ function queryBalance(event) {
     const newElement = html `<div class="${css.result}">結果：${number} ABC</div>`
     morphdom(resultElement2, newElement);
   });
+  console.log('>>> query ok.');
 }
 
 // ===== render ===== 

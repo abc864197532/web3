@@ -50,7 +50,7 @@ const css = csjs `
 
 const address = '';
 const ABI = require('./abi.json');
-const Contractaddress = '0xB9d971b6d93ae144f3a878e1D26435dceb7f09e6';
+const Contractaddress = '0x9641e24606a49270c3Bf3A9149537137929c161D'
 
 myContract = new web3.eth.Contract(ABI, Contractaddress);
 
@@ -94,9 +94,8 @@ function getAccounts(result) {
 // ===== Click Event =====
 
 function donate(event) {
-  let account = web3.eth.defaultAccount;
   console.log('account: ', account);
-  myContract.methods.transfer(account, 1).call((err, data) => {
+  myContract.methods.donate().call((err, data) => {
     if (err) return console.error(err);
     console.log('>>> donate ok.');
   });
@@ -104,7 +103,7 @@ function donate(event) {
 
 function withdrawal(event) {
   let account = web3.eth.defaultAccount;
-  myContract.methods.get(account).call((err, data) => {
+  myContract.methods.get().call((err, data) => {
     if (err) return console.error(err);
     console.log('>>> withdrawal ok.');
   });
@@ -124,6 +123,7 @@ function queryBalance(event) {
     const newElement = html `<div class="${css.result}">結果：${number} ABC</div>`
     morphdom(resultElement2, newElement);
   });
+  console.log('>>> query ok.');
 }
 
 // ===== render ===== 
