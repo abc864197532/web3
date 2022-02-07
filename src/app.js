@@ -86,7 +86,6 @@ function getAccounts(result) {
     } else {
       const address = addresses[0];
       web3.eth.defaultAccount = address;
-      inputAccount.value = address;
       render();
     }
   });
