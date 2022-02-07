@@ -119,7 +119,7 @@ function queryBalance(event) {
     const newElement = html `<div class="${css.result}">結果：${number} Ether</div>`
     morphdom(resultElement1, newElement);
   });
-  myContract.methods.balanceOf(account, (err, balance) => {
+  myContract.methods.balanceOf(account).call((err, balance) => {
     let number = balance;
     const newElement = html `<div class="${css.result}">結果：${number} ABC</div>`
     morphdom(resultElement2, newElement);
