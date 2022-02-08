@@ -32295,6 +32295,7 @@ myContract = new web3.eth.Contract(ABI, Contractaddress);
 
 const resultElement1 = html `<div></div>`
 const resultElement2 = html `<div></div>`
+const resultElement3 = html `<div></div>`
 
 // ===== Preload =====
 
@@ -32348,8 +32349,6 @@ function get(event) {
   });
 }
 
-// ===== Event =====
-
 function queryBalance(event) {
   let account = web3.eth.defaultAccount;
   web3.eth.getBalance(account, (err, balance) => {
@@ -32362,7 +32361,16 @@ function queryBalance(event) {
     const newElement = html `<div class="${css.result}">${number} ABC</div>`
     morphdom(resultElement2, newElement);
   });
-  console.log('>>> query ok.');
+  console.log('>>> query balance ok.');
+}
+
+function queryBlockNumber(event) {
+  web3.eth.getBlockNumber((err, data) => {
+    let number = data;
+    const newElement = html `<div class="${css.result}">Kovan Block Number: ${number}</div>`
+    morphdom(resultElement3, newElement);
+  });
+  console.log('>>> query block number ok.');
 }
 
 // ===== render ===== 
@@ -32378,6 +32386,10 @@ function render() {
   </div>
   <button class=${css.button} onclick=${get}>Withdrawal 1 ABC</button>
   <button class=${css.button} onclick=${donate}>Donate 1 ABC</button>
+  <div class=${css.box} id="app">
+    <button class=${css.button} onclick=${queryBlockNumber}>查詢目前 Block Number</button>
+    ${resultElement3}
+  </div>
   `)
 }
 
