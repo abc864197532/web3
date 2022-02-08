@@ -58,7 +58,6 @@ myContract = new web3.eth.Contract(ABI, Contractaddress);
 
 const resultElement1 = html `<div></div>`
 const resultElement2 = html `<div></div>`
-const resultElement3 = html `<div></div>`
 
 // ===== Preload =====
 
@@ -70,25 +69,21 @@ function start() {
 function getNetworkId(result) {
   console.log('>>> 1');
   web3.eth.net.getId(function (err, networkId) {
-    if (networkId != 42) {
+    if (networkId != 42)
       alert('It only support Kovan network!');
-    } else {
-      result.networkId = networkId;
-      getAccounts(result);
-    }
+    result.networkId = networkId;
+    getAccounts(result);
   });
 }
 
 function getAccounts(result) {
   console.log('>>> 2');
   web3.eth.getAccounts(function (err, addresses) {
-    if (!addresses[0]) {
+    if (!addresses[0])
       alert('please install or login your metamask.');
-    } else {
-      const address = addresses[0];
-      web3.eth.defaultAccount = address;
-      render();
-    }
+    const address = addresses[0];
+    web3.eth.defaultAccount = address;
+    render();
   });
 }
 
@@ -103,8 +98,6 @@ function donate(event) {
     if (err) return console.error(err);
     console.log('>>> donate ok.');
   });
-  const newElement = html `<div class="${css.result}">Donate Success.</div>`
-  morphdom(resultElement3, newElement);
 }
 
 function get(event) {
@@ -116,8 +109,6 @@ function get(event) {
     if (err) return console.error(err);
     console.log('>>> withdrawal ok.');
   });
-  const newElement = html `<div class="${css.result}">Withdrawal Success.</div>`
-  morphdom(resultElement3, newElement);
 }
 
 // ===== Event =====
@@ -150,7 +141,6 @@ function render() {
   </div>
   <button class=${css.button} onclick=${get}>Withdrawal 1 ABC</button>
   <button class=${css.button} onclick=${donate}>Donate 1 ABC</button>
-    ${resultElement3}
   `)
 }
 
