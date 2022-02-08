@@ -59,6 +59,7 @@ myContract = new web3.eth.Contract(ABI, Contractaddress);
 const resultElement1 = html `<div></div>`
 const resultElement2 = html `<div></div>`
 const resultElement3 = html `<div></div>`
+const resultElement4 = html `<div></div>`
 
 // ===== Preload =====
 
@@ -128,10 +129,13 @@ function queryBalance(event) {
 }
 
 function queryBlockNumber(event) {
-  web3.eth.getBlockNumber((err, data) => {
-    let number = data;
-    const newElement = html `<div class="${css.result}">Kovan Block Number: ${number}</div>`
-    morphdom(resultElement3, newElement);
+  web3.eth.getBlock('latest', (err, data) => {
+    let number1 = data.hash;
+    const newElement1 = html `<div class="${css.result}">Latest Hash: ${number1}</div>`
+    morphdom(resultElement3, newElement1);
+    let number2 = data.number;
+    const newElement2 = html `<div class="${css.result}">Block Number: ${number2}</div>`
+    morphdom(resultElement4, newElement2);
   });
   console.log('>>> query block number ok.');
 }
@@ -152,6 +156,7 @@ function render() {
   <div class=${css.box} id="app">
     <button class=${css.button} onclick=${queryBlockNumber}>查詢目前 Block Number</button>
     ${resultElement3}
+    ${resultElement4}
   </div>
   `)
 }
